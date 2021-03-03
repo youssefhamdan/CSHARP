@@ -33,13 +33,19 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.comboBox = new System.Windows.Forms.ComboBox();
+            this.valMin = new System.Windows.Forms.TextBox();
+            this.valMax = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.valid = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
             // 
-            this.serialPort1.PortName = "COM3";
+            this.serialPort1.PortName = "COM2";
             // 
             // dataGridView1
             // 
@@ -62,16 +68,73 @@
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(640, 38);
+            this.dataGridView2.Location = new System.Drawing.Point(642, 12);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(148, 150);
             this.dataGridView2.TabIndex = 2;
+            // 
+            // comboBox
+            // 
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.comboBox.Location = new System.Drawing.Point(6, 19);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(121, 21);
+            this.comboBox.TabIndex = 3;
+            // 
+            // valMin
+            // 
+            this.valMin.Location = new System.Drawing.Point(6, 46);
+            this.valMin.Name = "valMin";
+            this.valMin.Size = new System.Drawing.Size(100, 20);
+            this.valMin.TabIndex = 4;
+            // 
+            // valMax
+            // 
+            this.valMax.Location = new System.Drawing.Point(6, 72);
+            this.valMax.Name = "valMax";
+            this.valMax.Size = new System.Drawing.Size(100, 20);
+            this.valMax.TabIndex = 5;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.valid);
+            this.groupBox1.Controls.Add(this.comboBox);
+            this.groupBox1.Controls.Add(this.valMax);
+            this.groupBox1.Controls.Add(this.valMin);
+            this.groupBox1.Location = new System.Drawing.Point(659, 231);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 163);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // valid
+            // 
+            this.valid.Location = new System.Drawing.Point(6, 109);
+            this.valid.Name = "valid";
+            this.valid.Size = new System.Drawing.Size(75, 23);
+            this.valid.TabIndex = 6;
+            this.valid.Text = "Valider";
+            this.valid.UseVisualStyleBackColor = true;
+            this.valid.Click += new System.EventHandler(this.valid_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1183, 524);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
@@ -80,6 +143,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -91,6 +156,11 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.ComboBox comboBox;
+        private System.Windows.Forms.TextBox valMin;
+        private System.Windows.Forms.TextBox valMax;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button valid;
     }
 }
 
