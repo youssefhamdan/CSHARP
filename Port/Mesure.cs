@@ -10,7 +10,7 @@ namespace Port
     {
         public int min { get; set; }
         public int max { get; set; }
-        public int dataConverti { get; set; }
+        public double dataConverti { get; set; }
         public int alarmeMin { get; set; }
         public int alarmeMax { get; set; }
         public Mesure(int min,int max,int dataConverti,int alarmeMin,int alarmeMax):base(0,0,0,0,0) {

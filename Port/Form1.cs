@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 using System.Collections;
+using System.IO;
 
 namespace Port
 {
@@ -147,8 +148,11 @@ namespace Port
                     index.data = data;
                     if (index.id > 0 && index.id < 11 && ((Mesure)index).min != 0)
                     {
-
-                        ((Mesure)index).dataConverti = 45;
+                        double math = Math.Pow(2, nbrData * 8);
+                        double buffer = (double)data / math;
+                        double max = (double)((Mesure)index).max;
+                        double min = (double)((Mesure)index).min;
+                        ((Mesure)index).dataConverti = buffer*(max-min)+min;
 
                         PlacementGrid(((Mesure)index));
                     }
@@ -156,6 +160,7 @@ namespace Port
                     {
                         PlacementGrid(index);
                     }
+                    
                 }   
             }
 
@@ -240,8 +245,35 @@ namespace Port
 
                 }
             }
-                //configUser.Add(Int32.Parse(comboBox.Text), new Tuple<int, int>(Int32.Parse(valMin.Text), Int32.Parse(valMax.Text)));
+
+
+           
+            
+            //configUser.Add(Int32.Parse(comboBox.Text), new Tuple<int, int>(Int32.Parse(valMin.Text), Int32.Parse(valMax.Text)));
             //MessageBox.Show(configUser[1].Item1+"");
+        }
+
+        private void update_Click(object sender, EventArgs e)
+        {
+            string test = "";
+
+            foreach (Base index in listeTrier)
+            {
+
+                if (index.id >0&&index.id<11&&((Mesure)index).min!=0)
+                {
+
+                    test += ((Mesure)index).id +""+ ((Mesure)index).min +""+ ((Mesure)index).max;
+                    test += "\r\n";
+                }
+                
+            }
+
+            
+            using (StreamWriter file = new StreamWriter("test.txt"))
+            {
+                file.Write(test);
+            }
         }
     }
 }

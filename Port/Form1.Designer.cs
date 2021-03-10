@@ -38,6 +38,7 @@
             this.valMax = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.valid = new System.Windows.Forms.Button();
+            this.update = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -108,6 +109,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.update);
             this.groupBox1.Controls.Add(this.valid);
             this.groupBox1.Controls.Add(this.comboBox);
             this.groupBox1.Controls.Add(this.valMax);
@@ -121,13 +123,23 @@
             // 
             // valid
             // 
-            this.valid.Location = new System.Drawing.Point(6, 109);
+            this.valid.Location = new System.Drawing.Point(6, 134);
             this.valid.Name = "valid";
             this.valid.Size = new System.Drawing.Size(75, 23);
             this.valid.TabIndex = 6;
             this.valid.Text = "Valider";
             this.valid.UseVisualStyleBackColor = true;
             this.valid.Click += new System.EventHandler(this.valid_Click);
+            // 
+            // update
+            // 
+            this.update.Location = new System.Drawing.Point(87, 134);
+            this.update.Name = "update";
+            this.update.Size = new System.Drawing.Size(75, 23);
+            this.update.TabIndex = 7;
+            this.update.Text = "Update";
+            this.update.UseVisualStyleBackColor = true;
+            this.update.Click += new System.EventHandler(this.update_Click);
             // 
             // Form1
             // 
@@ -161,6 +173,7 @@
         private System.Windows.Forms.TextBox valMax;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button valid;
+        private System.Windows.Forms.Button update;
     }
 }
 
