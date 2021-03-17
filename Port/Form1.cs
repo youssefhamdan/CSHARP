@@ -16,15 +16,12 @@ namespace Port
 {
     public partial class Form1 : Form
     {
-        static int MIN = -40;
-        static int MAX = 80;
-        static int ALARME_MIN = 10;
-        static int ALARME_MAX = 25;
+
+        static string NOMFICHIER = "config.txt";
         List<Byte> listeSerial = new List<byte>();
         ArrayList listeTrier = new ArrayList();
-        Dictionary<int,Tuple <int ,int >> configUser=new Dictionary<int,Tuple<int, int>>();
-        Base keepAlive = new Base(0, 0, 0, 0, 0);
-        Alarme alarme = new Alarme(0, 0, 0);
+        
+        
 
         public Form1()
         {
@@ -41,8 +38,6 @@ namespace Port
             dataGridView2.ColumnCount = 1;
             dataGridView1.Rows.Add("ID", "Data Nbr", "Type", "Data", "DataConverti");
             serialPort1.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
-            //listeTrier.Add(keepAlive);
-            //listeTrier.Add(alarme);
             serialPort1.Open();
         }
 
@@ -59,8 +54,6 @@ namespace Port
             
             for (int i = 0; i < tab.Length; i++)
             {
-
-
                 dataGridView2.Invoke((MethodInvoker)(() => dataGridView2.Rows.Add(tab[i].ToString())));
                 listeSerial.Add(tab[i]);
             }
@@ -79,50 +72,14 @@ namespace Port
 
                 
 
-                        ulong data1 = 0;
+                        //ulong data1 = 0;
                         
                         int debutData = debutTrame + 2;
 
+                        rassemblerData(debutData, nbrocte);
 
+                        trameMesure(listeSerial[debutTrame], listeSerial[debutTrame + 1], listeSerial[debutTrame + 2], rassemblerData(debutData, nbrocte), listeSerial[(debutTrame + 2) + (nbrocte + 1)]);
 
-                        if (nbrocte > 0)
-                        {
-                            debutData++;
-                            data1 = listeSerial[debutData];
-                        }
-                        if (nbrocte > 1)
-                        {
-                            debutData++;
-
-                            data1 = data1 << 8;
-                            data1 += listeSerial[debutData];
-                        }
-                        if (nbrocte > 2)
-                        {
-                            debutData++;
-                            ulong data2 = 0;
-                            data2 = listeSerial[debutData];
-                            data1 = data1 << 16;
-                            data1 += data2;
-                        }
-
-
-                        
-                        
-                            
-                            trameMesure(listeSerial[debutTrame], listeSerial[debutTrame + 1], listeSerial[debutTrame + 2], data1, listeSerial[(debutTrame + 2) + (nbrocte + 1)]);
-
-                            //trame.nbrData = listeSerial[debutTrame + 1];
-                            //trame.type = listeSerial[debutTrame + 2];
-                            //listeSerial[debutTrame] + "", listeSerial[debutTrame + 1] + "", listeSerial[debutTrame + 2] + "", data1, listeSerial[(debutTrame + 2) + (nbrocte + 1)] + ""))
-                        
-                        /*ulong data2 = 0;
-                        data2 = listeSerial[debutData];
-                        data1 =data1 << 8;
-                        data1 += data2;*/
-
-                        //MessageBox.Show(data1 + "");
-                        //dataGridView1.Invoke((MethodInvoker)(() => dataGridView1.Rows.Add(listeSerial[debutTrame] + "", listeSerial[debutTrame + 1] + "", listeSerial[debutTrame + 2] + "", data1, listeSerial[(debutTrame + 2) + (nbrocte + 1)] + "")));
                     }
 
 
@@ -134,13 +91,41 @@ namespace Port
         }
 
 
+        private ulong rassemblerData(int debutData,int nbrocte) {
+
+            ulong data1 = 0;
+
+            if (nbrocte > 0)
+            {
+                debutData++;
+                data1 = listeSerial[debutData];
+            }
+            if (nbrocte > 1)
+            {
+                debutData++;
+
+                data1 = data1 << 8;
+                data1 += listeSerial[debutData];
+            }
+            if (nbrocte > 2)
+            {
+                debutData++;
+                ulong data2 = 0;
+                data2 = listeSerial[debutData];
+                data1 = data1 << 16;
+                data1 += data2;
+            }
+
+            return data1;
+        }
+
         private void trameMesure(int id, int nbrData, int type,ulong data,int checksum) {
             
             Boolean idExistant = true;
            
             foreach (Base index in listeTrier) {
                 if (index.id == id) {
-                    //MessageBox.Show("existant");
+                    
                     idExistant = false;
                     index.id = id;
                     index.nbrData = nbrData;
@@ -169,14 +154,14 @@ namespace Port
 
                 if (id == 0)
                 {
-                    MessageBox.Show("INE");
+                    
                     Base trame = new Base(id,nbrData,type,data,0);
                     listeTrier.Add(trame);
                     
                 }
                 else if (id == 50)
                 {
-                    MessageBox.Show("INE");
+                    
                     Alarme trame = new Alarme(0,0,0);
                     trame.id = id;
                     trame.nbrData = nbrData;
@@ -186,7 +171,7 @@ namespace Port
                 }
                 else if (id > 0)
                 {
-                    MessageBox.Show("INE");
+                    
                     Mesure trame = new Mesure(0,0,0,0,0);
                     trame.id = id;
                     trame.nbrData = nbrData;
@@ -249,12 +234,12 @@ namespace Port
 
            
             
-            //configUser.Add(Int32.Parse(comboBox.Text), new Tuple<int, int>(Int32.Parse(valMin.Text), Int32.Parse(valMax.Text)));
-            //MessageBox.Show(configUser[1].Item1+"");
+         
         }
 
         private void update_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("UPDATE CONFIG");
             string test = "";
 
             foreach (Base index in listeTrier)
@@ -263,16 +248,34 @@ namespace Port
                 if (index.id >0&&index.id<11&&((Mesure)index).min!=0)
                 {
 
-                    test += ((Mesure)index).id +""+ ((Mesure)index).min +""+ ((Mesure)index).max;
+                    test += ((Mesure)index).id +";"+ ((Mesure)index).min +";"+ ((Mesure)index).max;
                     test += "\r\n";
                 }
                 
             }
 
             
-            using (StreamWriter file = new StreamWriter("test.txt"))
+            using (StreamWriter file = new StreamWriter(NOMFICHIER))
             {
                 file.Write(test);
+            }
+
+           
+        }
+
+        private void loadConfig_Click(object sender, EventArgs e)
+        {
+            string[] lines = System.IO.File.ReadAllLines(NOMFICHIER);
+
+            foreach (string index in lines) {
+                string [] splitString = index.Split(';');
+                foreach (Base indexTrame in listeTrier) {
+                    if (indexTrame.id == Int32.Parse(splitString[0])) {
+                        ((Mesure)indexTrame).min = Int32.Parse(splitString[1]);
+                        ((Mesure)indexTrame).max = Int32.Parse(splitString[2]);
+                    }
+                    
+                }
             }
         }
     }

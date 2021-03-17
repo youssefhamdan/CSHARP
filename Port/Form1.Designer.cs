@@ -37,8 +37,9 @@
             this.valMin = new System.Windows.Forms.TextBox();
             this.valMax = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.valid = new System.Windows.Forms.Button();
+            this.loadConfig = new System.Windows.Forms.Button();
             this.update = new System.Windows.Forms.Button();
+            this.valid = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -109,6 +110,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.loadConfig);
             this.groupBox1.Controls.Add(this.update);
             this.groupBox1.Controls.Add(this.valid);
             this.groupBox1.Controls.Add(this.comboBox);
@@ -116,10 +118,30 @@
             this.groupBox1.Controls.Add(this.valMin);
             this.groupBox1.Location = new System.Drawing.Point(659, 231);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 163);
+            this.groupBox1.Size = new System.Drawing.Size(200, 207);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // loadConfig
+            // 
+            this.loadConfig.Location = new System.Drawing.Point(7, 163);
+            this.loadConfig.Name = "loadConfig";
+            this.loadConfig.Size = new System.Drawing.Size(99, 23);
+            this.loadConfig.TabIndex = 8;
+            this.loadConfig.Text = "LOAD CONFIG";
+            this.loadConfig.UseVisualStyleBackColor = true;
+            this.loadConfig.Click += new System.EventHandler(this.loadConfig_Click);
+            // 
+            // update
+            // 
+            this.update.Location = new System.Drawing.Point(87, 134);
+            this.update.Name = "update";
+            this.update.Size = new System.Drawing.Size(107, 23);
+            this.update.TabIndex = 7;
+            this.update.Text = "UPDATE CONFIG";
+            this.update.UseVisualStyleBackColor = true;
+            this.update.Click += new System.EventHandler(this.update_Click);
             // 
             // valid
             // 
@@ -131,21 +153,11 @@
             this.valid.UseVisualStyleBackColor = true;
             this.valid.Click += new System.EventHandler(this.valid_Click);
             // 
-            // update
-            // 
-            this.update.Location = new System.Drawing.Point(87, 134);
-            this.update.Name = "update";
-            this.update.Size = new System.Drawing.Size(75, 23);
-            this.update.TabIndex = 7;
-            this.update.Text = "Update";
-            this.update.UseVisualStyleBackColor = true;
-            this.update.Click += new System.EventHandler(this.update_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1183, 524);
+            this.ClientSize = new System.Drawing.Size(891, 524);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label1);
@@ -174,6 +186,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button valid;
         private System.Windows.Forms.Button update;
+        private System.Windows.Forms.Button loadConfig;
     }
 }
 
