@@ -47,7 +47,7 @@
             // 
             // serialPort1
             // 
-            this.serialPort1.PortName = "COM2";
+            this.serialPort1.PortName = "COM3";
             // 
             // dataGridView1
             // 
@@ -131,7 +131,7 @@
             this.loadConfig.TabIndex = 8;
             this.loadConfig.Text = "LOAD CONFIG";
             this.loadConfig.UseVisualStyleBackColor = true;
-            this.loadConfig.Click += new System.EventHandler(this.loadConfig_Click);
+            this.loadConfig.Click += new System.EventHandler(this.LoadConfig);
             // 
             // update
             // 
@@ -141,7 +141,7 @@
             this.update.TabIndex = 7;
             this.update.Text = "UPDATE CONFIG";
             this.update.UseVisualStyleBackColor = true;
-            this.update.Click += new System.EventHandler(this.update_Click);
+            this.update.Click += new System.EventHandler(this.UpdateConfig);
             // 
             // valid
             // 
@@ -151,7 +151,7 @@
             this.valid.TabIndex = 6;
             this.valid.Text = "Valider";
             this.valid.UseVisualStyleBackColor = true;
-            this.valid.Click += new System.EventHandler(this.valid_Click);
+            this.valid.Click += new System.EventHandler(this.ValidConfig);
             // 
             // Form1
             // 

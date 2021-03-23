@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="Alarme.cs" />
     <Compile Include="Base.cs" />
+    <Compile Include="Config.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
