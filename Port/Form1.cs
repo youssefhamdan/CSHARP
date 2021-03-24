@@ -20,8 +20,8 @@ namespace Port
         static string NOMFICHIER = "config.txt";
         List<Byte> listeSerial = new List<byte>();
         ArrayList listeTrier = new ArrayList();
-        
-        
+
+
 
         public Form1()
         {
@@ -31,9 +31,9 @@ namespace Port
         AutoResetEvent waitHandle = new AutoResetEvent(false);
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
-            
+            chart1.Series["Series1"].IsValueShownAsLabel = true; 
+            timer1.Start();
+            tabControl1.SelectedTab = tabPage1;
             dataGridView1.ColumnCount = 5;
             dataGridView2.ColumnCount = 1;
             dataGridView1.Rows.Add("ID", "Data Nbr", "Type", "Data", "DataConverti");
@@ -43,7 +43,7 @@ namespace Port
 
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-
+            Chart();
             int nbrocte = 0;
             int debutTrame = 0;
             int offset = 0;
@@ -51,7 +51,7 @@ namespace Port
             byte[] tab = new byte[count];
             serialPort1.Read(tab, offset, count);
 
-            
+
             for (int i = 0; i < tab.Length; i++)
             {
                 dataGridView2.Invoke((MethodInvoker)(() => dataGridView2.Rows.Add(tab[i].ToString())));
@@ -70,10 +70,10 @@ namespace Port
                     if (i + (7 + nbrocte) < listeSerial.Count && listeSerial[i + (7 + nbrocte)] == 170)
                     {
 
-                
+
 
                         //ulong data1 = 0;
-                        
+
                         int debutData = debutTrame + 2;
 
                         rassemblerData(debutData, nbrocte);
@@ -91,7 +91,8 @@ namespace Port
         }
 
 
-        private ulong rassemblerData(int debutData,int nbrocte) {
+        private ulong rassemblerData(int debutData, int nbrocte)
+        {
 
             ulong data1 = 0;
 
@@ -119,13 +120,16 @@ namespace Port
             return data1;
         }
 
-        private void trameMesure(int id, int nbrData, int type,ulong data,int checksum) {
-            
+        private void trameMesure(int id, int nbrData, int type, ulong data, int checksum)
+        {
+
             Boolean idExistant = true;
-           
-            foreach (Base index in listeTrier) {
-                if (index.id == id) {
-                    
+
+            foreach (Base index in listeTrier)
+            {
+                if (index.id == id)
+                {
+
                     idExistant = false;
                     index.id = id;
                     index.nbrData = nbrData;
@@ -137,32 +141,33 @@ namespace Port
                         double buffer = (double)data / math;
                         double max = (double)((Mesure)index).max;
                         double min = (double)((Mesure)index).min;
-                        ((Mesure)index).dataConverti = buffer*(max-min)+min;
-
+                        ((Mesure)index).dataConverti = buffer * (max - min) + min;
                         PlacementGrid(((Mesure)index));
                     }
                     else
                     {
                         PlacementGrid(index);
                     }
-                    
-                }   
+
+                }
             }
 
-            if (idExistant) {
+            if (idExistant)
+            {
 
 
                 if (id == 0)
                 {
-                    
-                    Base trame = new Base(id,nbrData,type,data,0);
+
+                    Base trame = new Base(id, nbrData, type, data, 0);
                     listeTrier.Add(trame);
-                    
+                   
+
                 }
                 else if (id == 50)
                 {
-                    
-                    Alarme trame = new Alarme(0,0,0);
+
+                    Alarme trame = new Alarme(0, 0, 0);
                     trame.id = id;
                     trame.nbrData = nbrData;
                     trame.type = type;
@@ -171,32 +176,37 @@ namespace Port
                 }
                 else if (id > 0)
                 {
-                    
-                    Mesure trame = new Mesure(0,0,0,0,0);
+
+                    Mesure trame = new Mesure(0, 0, 0, 0, 0);
                     trame.id = id;
                     trame.nbrData = nbrData;
                     trame.type = type;
                     trame.data = data;
-                    
+
                     listeTrier.Add(trame);
+                   
                 }
 
                 dataGridView1.Invoke((MethodInvoker)(() => dataGridView1.Rows.Add(id, nbrData, type, data)));
+                
             }
-        
+
         }
 
 
-        private void PlacementGrid(Base trame) {
+        private void PlacementGrid(Base trame)
+        {
 
-            for (int i = 0; i < dataGridView1.Rows.Count-1; i++) {
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            {
 
-                if (dataGridView1.Rows[i].Cells[0].Value.ToString() == trame.id.ToString()) {
+                if (dataGridView1.Rows[i].Cells[0].Value.ToString() == trame.id.ToString())
+                {
                     dataGridView1.Rows[i].Cells[1].Value = trame.nbrData;
                     dataGridView1.Rows[i].Cells[2].Value = trame.type;
                     dataGridView1.Rows[i].Cells[3].Value = trame.data;
                 }
-                
+
             }
         }
 
@@ -216,10 +226,32 @@ namespace Port
 
             }
         }
+        private void Chart()
+        {
+            MessageBox.Show(graph.SelectedItem + "");
+               /* foreach (Base index in listeTrier)
+                {
 
-        
+                    if (index.id == Int32.Parse(graph.SelectedValue.ToString()))
+                    {
 
-        
+
+                        chart1.Series["Series1"].Points[index.id].SetValueY(((Mesure)index).dataConverti);
+                        chart1.Refresh();
+
+                    }
+
+
+                }*/
+            
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Chart();
+        }
+
+       
 
         
     }
