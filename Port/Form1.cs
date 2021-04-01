@@ -11,6 +11,8 @@ using System.IO.Ports;
 using System.Threading;
 using System.Collections;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Diagnostics;
 
 namespace Port
 {
@@ -19,8 +21,9 @@ namespace Port
 
         static string NOMFICHIER = "config.txt";
         List<Byte> listeSerial = new List<byte>();
+        List<double> values = new List<double>();
         ArrayList listeTrier = new ArrayList();
-
+        int cpt = 0;
 
 
         public Form1()
@@ -31,7 +34,9 @@ namespace Port
         AutoResetEvent waitHandle = new AutoResetEvent(false);
         private void Form1_Load(object sender, EventArgs e)
         {
-            chart1.Series["Series1"].IsValueShownAsLabel = true; 
+            graph.Items.Add(1);
+            graph.Items.Add(2);
+            graph.SelectedItem = 1;
             timer1.Start();
             tabControl1.SelectedTab = tabPage1;
             dataGridView1.ColumnCount = 5;
@@ -43,7 +48,7 @@ namespace Port
 
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            Chart();
+
             int nbrocte = 0;
             int debutTrame = 0;
             int offset = 0;
@@ -58,7 +63,8 @@ namespace Port
                 listeSerial.Add(tab[i]);
             }
 
-            for (int i = 0; i < listeSerial.Count; i++)
+
+            /*for (int i = 0; i < listeSerial.Count; i++)
             {
                 if (i + 4 < listeSerial.Count && listeSerial[i] == 85 && listeSerial[i + 1] == 170 && listeSerial[i + 2] == 85 && listeSerial[i + 3] != 170)
                 {
@@ -69,10 +75,6 @@ namespace Port
 
                     if (i + (7 + nbrocte) < listeSerial.Count && listeSerial[i + (7 + nbrocte)] == 170)
                     {
-
-
-
-                        //ulong data1 = 0;
 
                         int debutData = debutTrame + 2;
 
@@ -86,8 +88,41 @@ namespace Port
                 }
 
 
+            }*/
+            
+                
+
+                //serialPort1.Close();
             }
-            //serialPort1.Close();
+
+
+        private void traitement() {
+
+            int nbrocte = 0;
+            int debutTrame = 0;
+
+            if (listeSerial.Count > 4 && listeSerial[0] == 85 && listeSerial[1] == 170 && listeSerial[2] == 85 && listeSerial[3] != 170)
+            {
+
+                debutTrame = 3;
+                nbrocte = listeSerial[4];
+                // MessageBox.Show(listeSerial[4] + "test" + listeSerial.Count + "condifiton" + listeSerial[7 + nbrocte]);
+                if ((7 + nbrocte) < listeSerial.Count && listeSerial[(7 + nbrocte)] == 170)
+                {
+
+                    int debutData = debutTrame + 2;
+
+                    rassemblerData(debutData, nbrocte);
+
+                    trameMesure(listeSerial[debutTrame], listeSerial[debutTrame + 1], listeSerial[debutTrame + 2], rassemblerData(debutData, nbrocte), listeSerial[(debutTrame + 2) + (nbrocte + 1)]);
+                    for (int i = 0; i < (10 + nbrocte); i++)
+                    {
+                        listeSerial.RemoveAt(0);
+                    }
+                    //MessageBox.Show(listeSerial.Count + "");
+                }
+
+            }
         }
 
 
@@ -142,6 +177,18 @@ namespace Port
                         double max = (double)((Mesure)index).max;
                         double min = (double)((Mesure)index).min;
                         ((Mesure)index).dataConverti = buffer * (max - min) + min;
+
+                        if (((Mesure)index).valuesConverti.Count < 10)
+                        {
+                            ((Mesure)index).valuesConverti.Add(((Mesure)index).dataConverti);
+                        }
+                        else {
+                            ((Mesure)index).valuesConverti.RemoveAt(0);
+                            ((Mesure)index).valuesConverti.Add(((Mesure)index).dataConverti);
+                        }
+                            
+                        
+                        
                         PlacementGrid(((Mesure)index));
                     }
                     else
@@ -176,7 +223,7 @@ namespace Port
                 }
                 else if (id > 0)
                 {
-
+                   
                     Mesure trame = new Mesure(0, 0, 0, 0, 0);
                     trame.id = id;
                     trame.nbrData = nbrData;
@@ -226,33 +273,37 @@ namespace Port
 
             }
         }
+        
         private void Chart()
         {
-            MessageBox.Show(graph.SelectedItem + "");
-               /* foreach (Base index in listeTrier)
+            chart1.Series.Clear();
+            Series series = chart1.Series.Add("Series2");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            foreach (Base index in listeTrier)
                 {
 
-                    if (index.id == Int32.Parse(graph.SelectedValue.ToString()))
+                    if (index.id == int.Parse(graph.Text)&& ((Mesure)index).valuesConverti.Count!=0)
                     {
 
-
-                        chart1.Series["Series1"].Points[index.id].SetValueY(((Mesure)index).dataConverti);
-                        chart1.Refresh();
+                    //chart1.Series["Series2"].Points.AddXY(cpt, ((Mesure)index).dataConverti);
+                        for (int i = 0; i < ((Mesure)index).valuesConverti.Count; i++) {
+                            series.Points.AddXY(i+1, ((Mesure)index).valuesConverti[i]);
+                        }
 
                     }
 
 
-                }*/
+                }
             
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            traitement();
             Chart();
+            
         }
 
        
-
-        
     }
 }

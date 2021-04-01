@@ -13,6 +13,8 @@ namespace Port
         public double dataConverti { get; set; }
         public int alarmeMin { get; set; }
         public int alarmeMax { get; set; }
+
+        public List<double> valuesConverti = new List<double>();
         public Mesure(int min,int max,int dataConverti,int alarmeMin,int alarmeMax):base(0,0,0,0,0) {
             this.min = min;
             this.max = max;
