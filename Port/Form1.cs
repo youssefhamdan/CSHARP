@@ -21,9 +21,8 @@ namespace Port
 
         static string NOMFICHIER = "config.txt";
         List<Byte> listeSerial = new List<byte>();
-        List<double> values = new List<double>();
         ArrayList listeTrier = new ArrayList();
-        int cpt = 0;
+       
 
 
         public Form1()
@@ -38,7 +37,6 @@ namespace Port
             graph.Items.Add(2);
             graph.SelectedItem = 1;
             timer1.Start();
-            tabControl1.SelectedTab = tabPage1;
             dataGridView1.ColumnCount = 5;
             dataGridView2.ColumnCount = 1;
             dataGridView1.Rows.Add("ID", "Data Nbr", "Type", "Data", "DataConverti");
@@ -100,29 +98,37 @@ namespace Port
 
             int nbrocte = 0;
             int debutTrame = 0;
-
-            if (listeSerial.Count > 4 && listeSerial[0] == 85 && listeSerial[1] == 170 && listeSerial[2] == 85 && listeSerial[3] != 170)
+            while (listeSerial.Count > 2)
             {
 
-                debutTrame = 3;
-                nbrocte = listeSerial[4];
-                // MessageBox.Show(listeSerial[4] + "test" + listeSerial.Count + "condifiton" + listeSerial[7 + nbrocte]);
-                if ((7 + nbrocte) < listeSerial.Count && listeSerial[(7 + nbrocte)] == 170)
+                if (listeSerial.Count > 4 && listeSerial[0] == 85 && listeSerial[1] == 170 && listeSerial[2] == 85 && listeSerial[3] != 170)
                 {
 
-                    int debutData = debutTrame + 2;
+                    debutTrame = 3;
+                    nbrocte = listeSerial[4]; 
+                    if ((7 + nbrocte) < listeSerial.Count && listeSerial[(7 + nbrocte)] == 170)
+                    {
 
-                    rassemblerData(debutData, nbrocte);
+                        int debutData = debutTrame + 2;
 
-                    trameMesure(listeSerial[debutTrame], listeSerial[debutTrame + 1], listeSerial[debutTrame + 2], rassemblerData(debutData, nbrocte), listeSerial[(debutTrame + 2) + (nbrocte + 1)]);
-                    for (int i = 0; i < (10 + nbrocte); i++)
+                        rassemblerData(debutData, nbrocte);
+                        trameMesure(listeSerial[debutTrame], listeSerial[debutTrame + 1], listeSerial[debutTrame + 2], rassemblerData(debutData, nbrocte), listeSerial[(debutTrame + 2) + (nbrocte + 1)]);
+                        for (int i = 0; i < (10 + nbrocte); i++)
+                        {
+                            listeSerial.RemoveAt(0);
+                        } 
+                    }
+                    else
                     {
                         listeSerial.RemoveAt(0);
                     }
-                    //MessageBox.Show(listeSerial.Count + "");
                 }
-
+                else
+                {
+                    listeSerial.RemoveAt(0);
+                }
             }
+            
         }
 
 
