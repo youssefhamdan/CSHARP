@@ -37,9 +37,9 @@ namespace Port
             graph.Items.Add(2);
             graph.SelectedItem = 1;
             timer1.Start();
-            dataGridView1.ColumnCount = 5;
+            dataGridView1.ColumnCount = 3;
             dataGridView2.ColumnCount = 1;
-            dataGridView1.Rows.Add("ID", "Data Nbr", "Type", "Data", "DataConverti");
+            dataGridView1.Rows.Add("ID","Type", "DataConverti");
             serialPort1.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
             serialPort1.Open();
         }
@@ -51,6 +51,7 @@ namespace Port
             int debutTrame = 0;
             int offset = 0;
             int count = serialPort1.BytesToRead;
+            //byte[] tab = new byte[] { 85, 170, 85,3,2,1,61,52,119,170,85,170,85,170,85,1,2,1,241,178 };
             byte[] tab = new byte[count];
             serialPort1.Read(tab, offset, count);
 
@@ -61,36 +62,7 @@ namespace Port
                 listeSerial.Add(tab[i]);
             }
 
-
-            /*for (int i = 0; i < listeSerial.Count; i++)
-            {
-                if (i + 4 < listeSerial.Count && listeSerial[i] == 85 && listeSerial[i + 1] == 170 && listeSerial[i + 2] == 85 && listeSerial[i + 3] != 170)
-                {
-
-
-                    debutTrame = i + 3;
-                    nbrocte = listeSerial[i + 4];
-
-                    if (i + (7 + nbrocte) < listeSerial.Count && listeSerial[i + (7 + nbrocte)] == 170)
-                    {
-
-                        int debutData = debutTrame + 2;
-
-                        rassemblerData(debutData, nbrocte);
-
-                        trameMesure(listeSerial[debutTrame], listeSerial[debutTrame + 1], listeSerial[debutTrame + 2], rassemblerData(debutData, nbrocte), listeSerial[(debutTrame + 2) + (nbrocte + 1)]);
-
-                    }
-
-
-                }
-
-
-            }*/
             
-                
-
-                //serialPort1.Close();
             }
 
 
@@ -106,7 +78,7 @@ namespace Port
 
                     debutTrame = 3;
                     nbrocte = listeSerial[4]; 
-                    if ((7 + nbrocte) < listeSerial.Count && listeSerial[(7 + nbrocte)] == 170)
+                    if (listeSerial.Count > (9 + nbrocte)  && listeSerial[(9 + nbrocte)] == 170)
                     {
 
                         int debutData = debutTrame + 2;
@@ -199,7 +171,7 @@ namespace Port
                     }
                     else
                     {
-                        PlacementGrid(index);
+                        //PlacementGrid(index);
                     }
 
                 }
@@ -207,7 +179,7 @@ namespace Port
 
             if (idExistant)
             {
-
+                string typeStr = typeNom(type);
 
                 if (id == 0)
                 {
@@ -240,27 +212,34 @@ namespace Port
                    
                 }
 
-                dataGridView1.Invoke((MethodInvoker)(() => dataGridView1.Rows.Add(id, nbrData, type, data)));
+                dataGridView1.Invoke((MethodInvoker)(() => dataGridView1.Rows.Add(id, typeStr)));
                 
             }
 
         }
 
 
-        private void PlacementGrid(Base trame)
-        {
+        private String typeNom(int type) {
+            string nomType = "";
 
-            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            if (type == 1)
             {
-
-                if (dataGridView1.Rows[i].Cells[0].Value.ToString() == trame.id.ToString())
-                {
-                    dataGridView1.Rows[i].Cells[1].Value = trame.nbrData;
-                    dataGridView1.Rows[i].Cells[2].Value = trame.type;
-                    dataGridView1.Rows[i].Cells[3].Value = trame.data;
-                }
-
+                nomType = "Température";
             }
+            else if (type == 2) 
+            {
+                nomType = "Humidité";
+            }
+            else if (type == 3)
+            {
+                nomType = "Pression atmosphérique";
+            }
+            else if (type == 4)
+            {
+                nomType = "Luminosité";
+            }
+
+            return nomType;
         }
 
         private void PlacementGrid(Mesure trame)
@@ -271,10 +250,8 @@ namespace Port
 
                 if (dataGridView1.Rows[i].Cells[0].Value.ToString() == trame.id.ToString())
                 {
-                    dataGridView1.Rows[i].Cells[1].Value = trame.nbrData;
-                    dataGridView1.Rows[i].Cells[2].Value = trame.type;
-                    dataGridView1.Rows[i].Cells[3].Value = trame.data;
-                    dataGridView1.Rows[i].Cells[4].Value = trame.dataConverti;
+                                        
+                    dataGridView1.Rows[i].Cells[2].Value = trame.dataConverti;
                 }
 
             }

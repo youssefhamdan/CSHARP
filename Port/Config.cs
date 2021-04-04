@@ -11,22 +11,30 @@ namespace Port
     public partial class Form1
     {
         public void LoadConfig(object sender, EventArgs e) {
-
-            string[] lines = System.IO.File.ReadAllLines(NOMFICHIER);
-
-            foreach (string index in lines)
+            
+            try
             {
-                string[] splitString = index.Split(';');
-                foreach (Base indexTrame in listeTrier)
+                string[] lines = System.IO.File.ReadAllLines(NOMFICHIER);
+                foreach (string index in lines)
                 {
-                    if (indexTrame.id == Int32.Parse(splitString[0]))
+                    string[] splitString = index.Split(';');
+                    foreach (Base indexTrame in listeTrier)
                     {
-                        ((Mesure)indexTrame).min = Int32.Parse(splitString[1]);
-                        ((Mesure)indexTrame).max = Int32.Parse(splitString[2]);
-                    }
+                        if (indexTrame.id == Int32.Parse(splitString[0]))
+                        {
+                            ((Mesure)indexTrame).min = Int32.Parse(splitString[1]);
+                            ((Mesure)indexTrame).max = Int32.Parse(splitString[2]);
+                        }
 
+                    }
                 }
             }
+
+            catch (Exception ex) {
+                MessageBox.Show("Fichier inexistant");   
+            }
+
+            
         }
 
 
