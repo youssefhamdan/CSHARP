@@ -35,10 +35,13 @@ namespace Port
         {
             graph.Items.Add(1);
             graph.Items.Add(2);
+            graph.Items.Add(3);
             graph.SelectedItem = 1;
             timer1.Start();
             dataGridView1.ColumnCount = 3;
             dataGridView2.ColumnCount = 1;
+            //grid de debug
+            dataGridView2.Visible = false;
             dataGridView1.Rows.Add("ID","Type", "DataConverti");
             serialPort1.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
             serialPort1.Open();
@@ -47,11 +50,8 @@ namespace Port
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
 
-            int nbrocte = 0;
-            int debutTrame = 0;
             int offset = 0;
             int count = serialPort1.BytesToRead;
-            //byte[] tab = new byte[] { 85, 170, 85,3,2,1,61,52,119,170,85,170,85,170,85,1,2,1,241,178 };
             byte[] tab = new byte[count];
             serialPort1.Read(tab, offset, count);
 
@@ -169,17 +169,14 @@ namespace Port
                         
                         PlacementGrid(((Mesure)index));
                     }
-                    else
-                    {
-                        //PlacementGrid(index);
-                    }
+                   
 
                 }
             }
 
             if (idExistant)
             {
-                string typeStr = typeNom(type);
+                string typeStr = typeNom(type,id);
 
                 if (id == 0)
                 {
@@ -219,7 +216,7 @@ namespace Port
         }
 
 
-        private String typeNom(int type) {
+        private String typeNom(int type,int id) {
             string nomType = "";
 
             if (type == 1)
@@ -237,6 +234,14 @@ namespace Port
             else if (type == 4)
             {
                 nomType = "Luminosité";
+            }
+            else if (id == 0)
+            {
+                nomType = "KeepAlive";
+            }
+            else if (id == 50)
+            {
+                nomType = "Alarme";
             }
 
             return nomType;
@@ -257,28 +262,7 @@ namespace Port
             }
         }
         
-        private void Chart()
-        {
-            chart1.Series.Clear();
-            Series series = chart1.Series.Add("Series2");
-            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            foreach (Base index in listeTrier)
-                {
-
-                    if (index.id == int.Parse(graph.Text)&& ((Mesure)index).valuesConverti.Count!=0)
-                    {
-
-                    //chart1.Series["Series2"].Points.AddXY(cpt, ((Mesure)index).dataConverti);
-                        for (int i = 0; i < ((Mesure)index).valuesConverti.Count; i++) {
-                            series.Points.AddXY(i+1, ((Mesure)index).valuesConverti[i]);
-                        }
-
-                    }
-
-
-                }
-            
-        }
+        
 
         private void timer1_Tick(object sender, EventArgs e)
         {

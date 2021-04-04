@@ -40,7 +40,7 @@ namespace Port
 
         private void UpdateConfig(object sender, EventArgs e)
         {
-            MessageBox.Show("UPDATE CONFIG");
+            MessageBox.Show("Le fichier Config.txt a été créé,pour les prochains demarrage veuillez appuyez sur LOAD CONFIG");
             string test = "";
 
             foreach (Base index in listeTrier)
@@ -66,20 +66,24 @@ namespace Port
 
         private void ValidConfig(object sender, EventArgs e)
         {
-
-            foreach (Base index in listeTrier)
+            try
             {
-
-                if (index.id == Int32.Parse(comboBox.Text))
+                foreach (Base index in listeTrier)
                 {
 
-                    ((Mesure)index).min = Int32.Parse(valMin.Text);
-                    ((Mesure)index).max = Int32.Parse(valMax.Text);
+                    if (index.id == Int32.Parse(comboBox.Text))
+                    {
 
+                        ((Mesure)index).min = Int32.Parse(valMin.Text);
+                        ((Mesure)index).max = Int32.Parse(valMax.Text);
+
+                    }
                 }
+
             }
-
-
+            catch (Exception er) {
+                MessageBox.Show("Veuillez rentrez le min et le max");
+            }
 
 
 
