@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.load = new System.Windows.Forms.Button();
             this.update = new System.Windows.Forms.Button();
             this.valid = new System.Windows.Forms.Button();
@@ -49,9 +51,19 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.graph = new System.Windows.Forms.ComboBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.adminPanel = new System.Windows.Forms.GroupBox();
+            this.userUsername = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.submitLogin = new System.Windows.Forms.Button();
+            this.password = new System.Windows.Forms.TextBox();
+            this.username = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.dataSet1 = new System.Data.DataSet();
+            this.gridP = new System.Windows.Forms.DataGridView();
+            this.userPassword = new System.Windows.Forms.TextBox();
+            this.accessID = new System.Windows.Forms.TextBox();
+            this.addUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -59,6 +71,11 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            this.adminPanel.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridP)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -98,6 +115,24 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Config";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(113, 72);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(27, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Max";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(113, 46);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Min";
             // 
             // load
             // 
@@ -166,6 +201,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -220,17 +256,17 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(6, 6);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series2";
-            this.chart1.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Series2";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(739, 382);
             this.chart1.TabIndex = 2;
             this.chart1.Text = "chart1";
@@ -243,28 +279,115 @@
             this.graph.Size = new System.Drawing.Size(121, 21);
             this.graph.TabIndex = 1;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.adminPanel);
+            this.tabPage3.Controls.Add(this.groupBox2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(888, 478);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Login";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // adminPanel
+            // 
+            this.adminPanel.Controls.Add(this.addUser);
+            this.adminPanel.Controls.Add(this.accessID);
+            this.adminPanel.Controls.Add(this.userPassword);
+            this.adminPanel.Controls.Add(this.gridP);
+            this.adminPanel.Controls.Add(this.userUsername);
+            this.adminPanel.Location = new System.Drawing.Point(287, 26);
+            this.adminPanel.Name = "adminPanel";
+            this.adminPanel.Size = new System.Drawing.Size(582, 446);
+            this.adminPanel.TabIndex = 1;
+            this.adminPanel.TabStop = false;
+            this.adminPanel.Text = "ADMIN PANEL";
+            // 
+            // userUsername
+            // 
+            this.userUsername.Location = new System.Drawing.Point(6, 279);
+            this.userUsername.Name = "userUsername";
+            this.userUsername.Size = new System.Drawing.Size(100, 20);
+            this.userUsername.TabIndex = 2;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.submitLogin);
+            this.groupBox2.Controls.Add(this.password);
+            this.groupBox2.Controls.Add(this.username);
+            this.groupBox2.Location = new System.Drawing.Point(32, 26);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "LOGIN";
+            // 
+            // submitLogin
+            // 
+            this.submitLogin.Location = new System.Drawing.Point(119, 71);
+            this.submitLogin.Name = "submitLogin";
+            this.submitLogin.Size = new System.Drawing.Size(75, 23);
+            this.submitLogin.TabIndex = 2;
+            this.submitLogin.Text = "Submit";
+            this.submitLogin.UseVisualStyleBackColor = true;
+            this.submitLogin.Click += new System.EventHandler(this.submitLogin_Click);
+            // 
+            // password
+            // 
+            this.password.Location = new System.Drawing.Point(6, 57);
+            this.password.Name = "password";
+            this.password.Size = new System.Drawing.Size(100, 20);
+            this.password.TabIndex = 2;
+            // 
+            // username
+            // 
+            this.username.Location = new System.Drawing.Point(6, 31);
+            this.username.Name = "username";
+            this.username.Size = new System.Drawing.Size(100, 20);
+            this.username.TabIndex = 1;
+            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label3
+            // dataSet1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(113, 46);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Min";
+            this.dataSet1.DataSetName = "NewDataSet";
             // 
-            // label4
+            // gridP
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(113, 72);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(27, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Max";
+            this.gridP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridP.Location = new System.Drawing.Point(6, 57);
+            this.gridP.Name = "gridP";
+            this.gridP.Size = new System.Drawing.Size(486, 200);
+            this.gridP.TabIndex = 4;
+            // 
+            // userPassword
+            // 
+            this.userPassword.Location = new System.Drawing.Point(6, 305);
+            this.userPassword.Name = "userPassword";
+            this.userPassword.Size = new System.Drawing.Size(100, 20);
+            this.userPassword.TabIndex = 5;
+            // 
+            // accessID
+            // 
+            this.accessID.Location = new System.Drawing.Point(6, 331);
+            this.accessID.Name = "accessID";
+            this.accessID.Size = new System.Drawing.Size(100, 20);
+            this.accessID.TabIndex = 6;
+            // 
+            // addUser
+            // 
+            this.addUser.Location = new System.Drawing.Point(6, 357);
+            this.addUser.Name = "addUser";
+            this.addUser.Size = new System.Drawing.Size(75, 23);
+            this.addUser.TabIndex = 7;
+            this.addUser.Text = "Submit";
+            this.addUser.UseVisualStyleBackColor = true;
+            this.addUser.Click += new System.EventHandler(this.addUser_Click);
             // 
             // Form1
             // 
@@ -284,6 +407,13 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.adminPanel.ResumeLayout(false);
+            this.adminPanel.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridP)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -310,6 +440,18 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox adminPanel;
+        private System.Windows.Forms.TextBox userUsername;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button submitLogin;
+        private System.Windows.Forms.TextBox password;
+        private System.Windows.Forms.TextBox username;
+        private System.Data.DataSet dataSet1;
+        private System.Windows.Forms.DataGridView gridP;
+        private System.Windows.Forms.TextBox accessID;
+        private System.Windows.Forms.TextBox userPassword;
+        private System.Windows.Forms.Button addUser;
     }
 }
 
