@@ -40,12 +40,12 @@ namespace Port
             timer1.Start();
             dataGridView1.ColumnCount = 3;
             dataGridView2.ColumnCount = 1;
-            adminPanel.Visible = false;
+            //adminPanel.Visible = false;
             //grid de debug
             dataGridView2.Visible = false;
             dataGridView1.Rows.Add("ID","Type", "DataConverti");
             serialPort1.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
-            serialPort1.Open();
+            //serialPort1.Open();
             MakeDataTables();
         }
 
@@ -273,6 +273,6 @@ namespace Port
             
         }
 
-        
+       
     }
 }

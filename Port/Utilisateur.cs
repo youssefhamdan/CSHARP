@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Port
@@ -13,6 +15,9 @@ namespace Port
         String adminUsername = "youssefh";
         DataTable userTable = new DataTable("UserTable");
         String adminPassword = "1234";
+        internal static string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;"
+                                        +
+                                        @"Data Source=..\..\..\DB_UserAccess.accdb;Cache Authentication=True";
 
         private void submitLogin_Click(object sender, EventArgs e)
         {
@@ -238,7 +243,7 @@ namespace Port
             DataColumn parentColumn =
                 dataSet1.Tables["AccessTable"].Columns["id"];
             DataColumn childColumn =
-                dataSet1.Tables["UserTable"].Columns["id"];
+                dataSet1.Tables["UserTable"].Columns["Access_ID"];
             DataRelation relation = new
                 DataRelation("parent2Child", parentColumn, childColumn);
             dataSet1.Tables["UserTable"].ParentRelations.Add(relation);
@@ -254,14 +259,120 @@ namespace Port
             gridP.DataMember = "UserTable";
         }
 
-        private void addUser_Click(object sender, EventArgs e)
+        private void lecture_Clickl(object sender, EventArgs e)
         {
-            DataRow row;
+            lectuerDb();
+            /*DataRow row;
             row = userTable.NewRow();
             row["UserName"] = userUsername.Text;
             row["UserPassword"] = userPassword.Text;
             row["Access_ID"] = accessID.Text;
-            userTable.Rows.Add(row);
+            userTable.Rows.Add(row);*/
+        }
+        private void insertion_Click(object sender, EventArgs e)
+        {
+            insertDb(userUsername.Text, userPassword.Text,accessID.Text);
+            lectuerDb();
+        }
+
+        private void suppresion_CLick(object sender, EventArgs e)
+        {
+            deleteDb();
+            lectuerDb();
+        }
+
+
+
+        private void lectuerDb()
+        {
+            string CommandText = "SELECT * from UserTable " + "WHERE AccessKey_Id = " + "1 " + "ORDER BY UserName;";
+
+            userTable.Rows.Clear();
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand DBCommand = new OleDbCommand(CommandText, connection);
+
+                try
+                {
+                    connection.Open();
+
+                    OleDbDataReader DBReader = DBCommand.ExecuteReader();
+
+                    if (DBReader.HasRows)
+                    {
+                        while (DBReader.Read())
+                        {
+                            userTable.Rows.Add(new object[] { DBReader[0], DBReader[1], DBReader[2], DBReader[3] });
+                        }
+                    }
+
+                    DBReader.Close();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            //gridP.DataSource = dataSet1;
+            //gridP.DataMember = "UserTable";
+        }
+
+        private void insertDb(String user,String password,String acess) {
+
+            string CommandText = "insert into UserTable(UserName,UserPassword,AccessKey_Id) values('"+user+"','"+password+"','"+acess+"');";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand command = new OleDbCommand(CommandText, connection);
+
+                OleDbDataAdapter Adapter = new OleDbDataAdapter();
+
+                try
+                {
+                    Adapter.InsertCommand = command;
+
+                    connection.Open();
+                    int buffer = Adapter.InsertCommand.ExecuteNonQuery();
+                    connection.Close();
+
+                    if (buffer != 0) MessageBox.Show("User successfully inserted");
+                    else MessageBox.Show("User not inserted");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void deleteDb()
+        {
+            string CommandText = "DELETE FROM UserTable WHERE UserName = 'test';";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                OleDbCommand command = new OleDbCommand(CommandText, connection);
+                OleDbDataAdapter Adapter = new OleDbDataAdapter();
+
+                try
+                {
+                    Adapter.DeleteCommand = command;
+
+                    connection.Open();
+                    int buffer = Adapter.DeleteCommand.ExecuteNonQuery();
+                    connection.Close();
+
+                    if (buffer != 0) MessageBox.Show("User successfully deleted");
+                    else MessageBox.Show("User not found");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
