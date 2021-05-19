@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Port
 {
-    class Mesure : Base
+    internal class Mesure : Base
     {
         public int min { get; set; }
         public int max { get; set; }
@@ -15,7 +11,9 @@ namespace Port
         public int alarmeMax { get; set; }
 
         public List<double> valuesConverti = new List<double>();
-        public Mesure(int min,int max,int dataConverti,int alarmeMin,int alarmeMax):base(0,0,0,0,0) {
+
+        public Mesure(int min, int max, int dataConverti, int alarmeMin, int alarmeMax) : base(0, 0, 0, 0, 0)
+        {
             this.min = min;
             this.max = max;
             this.dataConverti = dataConverti;

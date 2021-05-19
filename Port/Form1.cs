@@ -33,22 +33,22 @@ namespace Port
         AutoResetEvent waitHandle = new AutoResetEvent(false);
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            tabControl1.SelectedIndex = 3;
             graph.Items.Add(1);
             graph.Items.Add(2);
             graph.Items.Add(3);
             graph.SelectedItem = 1;
+            combo_port.SelectedIndex = 0;
             timer1.Start();
-            dataGridView1.ColumnCount = 3;
-            dataGridView2.ColumnCount = 1;
-            //adminPanel.Visible = false;
-            //grid de debug
-            dataGridView2.Visible = false;
-            dataGridView1.Rows.Add("ID","Type", "DataConverti");
+            dataGridView1.ColumnCount = 4;
+            adminPanel.Visible = false;
+            dataGridView1.Rows.Add("ID","Type", "DataConverti","AlarmeStatus");
             serialPort1.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
-            //serialPort1.Open();
             MakeDataTables();
         }
 
+        //Recuperation donnes port COM + remplissage listeSerial
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
 
@@ -57,17 +57,15 @@ namespace Port
             byte[] tab = new byte[count];
             serialPort1.Read(tab, offset, count);
 
-
             for (int i = 0; i < tab.Length; i++)
             {
-                dataGridView2.Invoke((MethodInvoker)(() => dataGridView2.Rows.Add(tab[i].ToString())));
                 listeSerial.Add(tab[i]);
             }
 
             
             }
 
-
+        //Traitement listeSerial et suppresion des donnés traités
         private void traitement() {
 
             int nbrocte = 0;
@@ -105,7 +103,7 @@ namespace Port
             
         }
 
-
+        //regroupage des data en un seul chiffre pour la conversion
         private ulong rassemblerData(int debutData, int nbrocte)
         {
 
@@ -135,6 +133,10 @@ namespace Port
             return data1;
         }
 
+
+        //verification si trame deja existante + conversion de data 
+        //si trame existe changement dans grid
+        //sinon rajout dans listeTrier
         private void trameMesure(int id, int nbrData, int type, ulong data, int checksum)
         {
 
@@ -150,15 +152,17 @@ namespace Port
                     index.nbrData = nbrData;
                     index.type = type;
                     index.data = data;
-                    if (index.id > 0 && index.id < 11 && ((Mesure)index).min != 0)
+                    if (index.id > 0 && index.id < 11)
                     {
+
                         double math = Math.Pow(2, nbrData * 8);
                         double buffer = (double)data / math;
                         double max = (double)((Mesure)index).max;
                         double min = (double)((Mesure)index).min;
                         ((Mesure)index).dataConverti = buffer * (max - min) + min;
 
-                        if (((Mesure)index).valuesConverti.Count < 10)
+
+                            if (((Mesure)index).valuesConverti.Count < 10)
                         {
                             ((Mesure)index).valuesConverti.Add(((Mesure)index).dataConverti);
                         }
@@ -217,7 +221,7 @@ namespace Port
 
         }
 
-
+        // implementation des noms pour les types;lors de l'affichage dans le grid
         private String typeNom(int type,int id) {
             string nomType = "";
 
@@ -249,6 +253,7 @@ namespace Port
             return nomType;
         }
 
+        //placement dans le grid
         private void PlacementGrid(Mesure trame)
         {
 
@@ -259,13 +264,27 @@ namespace Port
                 {
                                         
                     dataGridView1.Rows[i].Cells[2].Value = trame.dataConverti;
+
+                    if (trame.dataConverti > trame.alarmeMax)
+                    {
+                        dataGridView1.Rows[i].Cells[3].Value = "Trop chaud";
+                    }
+                    else if (trame.dataConverti < trame.alarmeMin)
+                    {
+                        dataGridView1.Rows[i].Cells[3].Value = "Trop Froid";
+                    }
+                    else {
+                       dataGridView1.Rows[i].Cells[3].Value = "Ok";
+                    }
                 }
 
             }
         }
-        
-        
 
+
+        //Timer
+        //contient le traitement des trames
+        //et le comportement du graphique
         private void timer1_Tick(object sender, EventArgs e)
         {
             traitement();
@@ -273,6 +292,6 @@ namespace Port
             
         }
 
-       
+      
     }
 }
