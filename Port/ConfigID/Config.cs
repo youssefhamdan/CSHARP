@@ -60,12 +60,40 @@ namespace Port
             LoadConfig();
         }
 
+        private void button_alarme_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (Base index in listeTrier)
+                {
+                    if (index.id == Int32.Parse(comboBox.Text))
+                    {
+
+                        if (user.idAcces == 1 || user.idAcces == 2 || user.idAcces == 3 || user.idAcces == 4)
+                        {
+                            ((Mesure)index).alarmeMin = Int32.Parse(alarmeMin.Text);
+                            ((Mesure)index).alarmeMax = Int32.Parse(alarmeMax.Text);
+                            UpdateConfig();
+                            MessageBox.Show("Alarme configurer");
+                        }
+                        else
+                        {
+                            
+                            MessageBox.Show("Vous n'avez pas les droit de configuerer l'alarme ou vous devez vous connecter");
+                        }
+                       
+                    }
+                }
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show("alarmeMin et alarmeMax ; sinon les valeurs par defaut vont etre inserer");
+            }
+        }
+
         //Test configuration id
         private void ValidConfig(object sender, EventArgs e)
         {
-            Boolean ifConfig = false;
-            Boolean ifNotConfig = false;
-            String message = "";
             try
             {
                 foreach (Base index in listeTrier)
@@ -76,40 +104,24 @@ namespace Port
                         {
                             ((Mesure)index).min = Int32.Parse(valMin.Text);
                             ((Mesure)index).max = Int32.Parse(valMax.Text);
-                            ifConfig = true;
+                            /******CODE EXAMEN: DEBUT*********/        
+                            insertDbLog(DateTime.Now.ToString(), "ID", valMin.Text + ";" + valMax.Text);
+                            /******CODE EXAMEN: FIN***********/
+                            UpdateConfig();
                             MessageBox.Show("Id configurer");
                         }
                         else
                         {
-                            ifNotConfig = true;
-                            message += "Vous n'avez pas les droit de configurer l'id ou vous devez vous connecter\n";
+                             MessageBox.Show("Vous n'avez pas les droit de configurer l'id ou vous devez vous connecter\n");
                         }
 
-                        if (user.idAcces == 1 || user.idAcces == 2 || user.idAcces == 3 || user.idAcces == 4)
-                        {
-                            ((Mesure)index).alarmeMin = Int32.Parse(alarmeMin.Text);
-                            ((Mesure)index).alarmeMax = Int32.Parse(alarmeMax.Text);
-                            ifConfig = true;
-                            MessageBox.Show("Alarme configurer");
-                        }
-                        else
-                        {
-                            ifNotConfig = true;
-                            message += "Vous n'avez pas les droit de configuerer l'alarme ou vous devez vous connecter";
-                        }
-                        if (ifConfig)
-                        {
-                            UpdateConfig();
-                        }
-                        if (ifNotConfig) {
-                            MessageBox.Show(message);
-                        }
+                      
                     }
                 }
             }
             catch (Exception er)
             {
-                MessageBox.Show("Veuillez rentrez min,max,alarmeMin et alarmeMax ; sinon les valeurs par defaut vont etre inserer");
+                MessageBox.Show("Veuillez rentrez min,max ; sinon les valeurs par defaut vont etre inserer");
             }
         }
     }

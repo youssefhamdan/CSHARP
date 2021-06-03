@@ -33,24 +33,12 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.load_fichier = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.alarmeMax = new System.Windows.Forms.TextBox();
-            this.alarmeMin = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.valid = new System.Windows.Forms.Button();
-            this.comboBox = new System.Windows.Forms.ComboBox();
-            this.valMax = new System.Windows.Forms.TextBox();
-            this.valMin = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.graph = new System.Windows.Forms.ComboBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.dataSet1 = new System.Data.DataSet();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button_port = new System.Windows.Forms.Button();
+            this.combo_port = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.text_connexion = new System.Windows.Forms.Label();
             this.adminPanel = new System.Windows.Forms.GroupBox();
@@ -71,222 +59,105 @@
             this.submitLogin = new System.Windows.Forms.Button();
             this.password = new System.Windows.Forms.TextBox();
             this.username = new System.Windows.Forms.TextBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button_port = new System.Windows.Forms.Button();
-            this.combo_port = new System.Windows.Forms.ComboBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.dataSet1 = new System.Data.DataSet();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.graph = new System.Windows.Forms.ComboBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button_alarme = new System.Windows.Forms.Button();
+            this.load_fichier = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.alarmeMax = new System.Windows.Forms.TextBox();
+            this.alarmeMin = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.valid = new System.Windows.Forms.Button();
+            this.comboBox = new System.Windows.Forms.ComboBox();
+            this.valMax = new System.Windows.Forms.TextBox();
+            this.valMin = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.grid_log = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.adminPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridP)).BeginInit();
             this.group_connexion.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_log)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort1
             // 
             this.serialPort1.PortName = "COM";
             // 
-            // dataGridView1
+            // timer1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 6);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 5;
-            this.dataGridView1.Size = new System.Drawing.Size(520, 267);
-            this.dataGridView1.TabIndex = 0;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // groupBox1
+            // dataSet1
             // 
-            this.groupBox1.Controls.Add(this.load_fichier);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.alarmeMax);
-            this.groupBox1.Controls.Add(this.alarmeMin);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.valid);
-            this.groupBox1.Controls.Add(this.comboBox);
-            this.groupBox1.Controls.Add(this.valMax);
-            this.groupBox1.Controls.Add(this.valMin);
-            this.groupBox1.Location = new System.Drawing.Point(566, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(256, 267);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Config";
+            this.dataSet1.DataSetName = "NewDataSet";
             // 
-            // load_fichier
+            // tabPage4
             // 
-            this.load_fichier.Location = new System.Drawing.Point(87, 160);
-            this.load_fichier.Name = "load_fichier";
-            this.load_fichier.Size = new System.Drawing.Size(85, 51);
-            this.load_fichier.TabIndex = 15;
-            this.load_fichier.Text = "Charger dernier configuration";
-            this.load_fichier.UseVisualStyleBackColor = true;
-            this.load_fichier.Click += new System.EventHandler(this.load_fichier_Click);
+            this.tabPage4.Controls.Add(this.label1);
+            this.tabPage4.Controls.Add(this.button_port);
+            this.tabPage4.Controls.Add(this.combo_port);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(888, 478);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Config Port";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // label1
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(113, 127);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Alarme Max";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(27, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(139, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Veuillez choisir un port COM";
             // 
-            // label5
+            // button_port
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(113, 101);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Alarme Min";
+            this.button_port.Location = new System.Drawing.Point(182, 41);
+            this.button_port.Name = "button_port";
+            this.button_port.Size = new System.Drawing.Size(75, 23);
+            this.button_port.TabIndex = 1;
+            this.button_port.Text = "VALIDER";
+            this.button_port.UseVisualStyleBackColor = true;
+            this.button_port.Click += new System.EventHandler(this.button_port_Click);
             // 
-            // alarmeMax
+            // combo_port
             // 
-            this.alarmeMax.Location = new System.Drawing.Point(6, 124);
-            this.alarmeMax.Name = "alarmeMax";
-            this.alarmeMax.Size = new System.Drawing.Size(100, 20);
-            this.alarmeMax.TabIndex = 12;
-            // 
-            // alarmeMin
-            // 
-            this.alarmeMin.Location = new System.Drawing.Point(6, 98);
-            this.alarmeMin.Name = "alarmeMin";
-            this.alarmeMin.Size = new System.Drawing.Size(100, 20);
-            this.alarmeMin.TabIndex = 11;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(113, 72);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(27, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Max";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(113, 46);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Min";
-            // 
-            // valid
-            // 
-            this.valid.Location = new System.Drawing.Point(6, 160);
-            this.valid.Name = "valid";
-            this.valid.Size = new System.Drawing.Size(75, 23);
-            this.valid.TabIndex = 6;
-            this.valid.Text = "Valider";
-            this.valid.UseVisualStyleBackColor = true;
-            this.valid.Click += new System.EventHandler(this.ValidConfig);
-            // 
-            // comboBox
-            // 
-            this.comboBox.FormattingEnabled = true;
-            this.comboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.comboBox.Location = new System.Drawing.Point(6, 19);
-            this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(121, 21);
-            this.comboBox.TabIndex = 3;
-            // 
-            // valMax
-            // 
-            this.valMax.Location = new System.Drawing.Point(6, 72);
-            this.valMax.Name = "valMax";
-            this.valMax.Size = new System.Drawing.Size(100, 20);
-            this.valMax.TabIndex = 5;
-            // 
-            // valMin
-            // 
-            this.valMin.Location = new System.Drawing.Point(6, 46);
-            this.valMin.Name = "valMin";
-            this.valMin.Size = new System.Drawing.Size(100, 20);
-            this.valMin.TabIndex = 4;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(896, 504);
-            this.tabControl1.TabIndex = 7;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(888, 478);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Tableau";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.chart1);
-            this.tabPage2.Controls.Add(this.graph);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(888, 478);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Graphique";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // chart1
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(6, 15);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series2";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(739, 382);
-            this.chart1.TabIndex = 2;
-            this.chart1.Text = "chart1";
-            // 
-            // graph
-            // 
-            this.graph.FormattingEnabled = true;
-            this.graph.Location = new System.Drawing.Point(47, 403);
-            this.graph.Name = "graph";
-            this.graph.Size = new System.Drawing.Size(121, 21);
-            this.graph.TabIndex = 1;
+            this.combo_port.FormattingEnabled = true;
+            this.combo_port.Items.AddRange(new object[] {
+            "COM1",
+            "COM2",
+            "COM3",
+            "COM4",
+            "COM5",
+            "COM6",
+            "COM7",
+            "COM8",
+            "COM9",
+            "COM10"});
+            this.combo_port.Location = new System.Drawing.Point(30, 41);
+            this.combo_port.Name = "combo_port";
+            this.combo_port.Size = new System.Drawing.Size(121, 21);
+            this.combo_port.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -493,64 +364,228 @@
             this.username.Size = new System.Drawing.Size(100, 20);
             this.username.TabIndex = 1;
             // 
-            // tabPage4
+            // tabPage2
             // 
-            this.tabPage4.Controls.Add(this.label1);
-            this.tabPage4.Controls.Add(this.button_port);
-            this.tabPage4.Controls.Add(this.combo_port);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(888, 478);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Config Port";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage2.Controls.Add(this.chart1);
+            this.tabPage2.Controls.Add(this.graph);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(888, 478);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Graphique";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // chart1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Veuillez choisir un port COM";
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(6, 15);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series2";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(739, 382);
+            this.chart1.TabIndex = 2;
+            this.chart1.Text = "chart1";
             // 
-            // button_port
+            // graph
             // 
-            this.button_port.Location = new System.Drawing.Point(182, 41);
-            this.button_port.Name = "button_port";
-            this.button_port.Size = new System.Drawing.Size(75, 23);
-            this.button_port.TabIndex = 1;
-            this.button_port.Text = "VALIDER";
-            this.button_port.UseVisualStyleBackColor = true;
-            this.button_port.Click += new System.EventHandler(this.button_port_Click);
+            this.graph.FormattingEnabled = true;
+            this.graph.Location = new System.Drawing.Point(47, 403);
+            this.graph.Name = "graph";
+            this.graph.Size = new System.Drawing.Size(121, 21);
+            this.graph.TabIndex = 1;
             // 
-            // combo_port
+            // tabPage1
             // 
-            this.combo_port.FormattingEnabled = true;
-            this.combo_port.Items.AddRange(new object[] {
-            "COM1",
-            "COM2",
-            "COM3",
-            "COM4",
-            "COM5",
-            "COM6",
-            "COM7",
-            "COM8",
-            "COM9",
-            "COM10"});
-            this.combo_port.Location = new System.Drawing.Point(30, 41);
-            this.combo_port.Name = "combo_port";
-            this.combo_port.Size = new System.Drawing.Size(121, 21);
-            this.combo_port.TabIndex = 0;
+            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(888, 478);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Tableau";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // timer1
+            // dataGridView1
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 5;
+            this.dataGridView1.Size = new System.Drawing.Size(520, 267);
+            this.dataGridView1.TabIndex = 0;
             // 
-            // dataSet1
+            // groupBox1
             // 
-            this.dataSet1.DataSetName = "NewDataSet";
+            this.groupBox1.Controls.Add(this.button_alarme);
+            this.groupBox1.Controls.Add(this.load_fichier);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.alarmeMax);
+            this.groupBox1.Controls.Add(this.alarmeMin);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.valid);
+            this.groupBox1.Controls.Add(this.comboBox);
+            this.groupBox1.Controls.Add(this.valMax);
+            this.groupBox1.Controls.Add(this.valMin);
+            this.groupBox1.Location = new System.Drawing.Point(566, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(256, 267);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Config";
+            // 
+            // button_alarme
+            // 
+            this.button_alarme.Location = new System.Drawing.Point(7, 181);
+            this.button_alarme.Name = "button_alarme";
+            this.button_alarme.Size = new System.Drawing.Size(100, 23);
+            this.button_alarme.TabIndex = 16;
+            this.button_alarme.Text = "Valider alarme";
+            this.button_alarme.UseVisualStyleBackColor = true;
+            this.button_alarme.Click += new System.EventHandler(this.button_alarme_Click);
+            // 
+            // load_fichier
+            // 
+            this.load_fichier.Location = new System.Drawing.Point(165, 210);
+            this.load_fichier.Name = "load_fichier";
+            this.load_fichier.Size = new System.Drawing.Size(85, 51);
+            this.load_fichier.TabIndex = 15;
+            this.load_fichier.Text = "Charger dernier configuration";
+            this.load_fichier.UseVisualStyleBackColor = true;
+            this.load_fichier.Click += new System.EventHandler(this.load_fichier_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(113, 158);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Alarme Max";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(113, 132);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(59, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Alarme Min";
+            // 
+            // alarmeMax
+            // 
+            this.alarmeMax.Location = new System.Drawing.Point(7, 155);
+            this.alarmeMax.Name = "alarmeMax";
+            this.alarmeMax.Size = new System.Drawing.Size(100, 20);
+            this.alarmeMax.TabIndex = 12;
+            // 
+            // alarmeMin
+            // 
+            this.alarmeMin.Location = new System.Drawing.Point(7, 129);
+            this.alarmeMin.Name = "alarmeMin";
+            this.alarmeMin.Size = new System.Drawing.Size(100, 20);
+            this.alarmeMin.TabIndex = 11;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(113, 72);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(27, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Max";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(113, 46);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Min";
+            // 
+            // valid
+            // 
+            this.valid.Location = new System.Drawing.Point(7, 100);
+            this.valid.Name = "valid";
+            this.valid.Size = new System.Drawing.Size(99, 23);
+            this.valid.TabIndex = 6;
+            this.valid.Text = "Valider intervalle";
+            this.valid.UseVisualStyleBackColor = true;
+            this.valid.Click += new System.EventHandler(this.ValidConfig);
+            // 
+            // comboBox
+            // 
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.comboBox.Location = new System.Drawing.Point(6, 19);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(121, 21);
+            this.comboBox.TabIndex = 3;
+            // 
+            // valMax
+            // 
+            this.valMax.Location = new System.Drawing.Point(6, 72);
+            this.valMax.Name = "valMax";
+            this.valMax.Size = new System.Drawing.Size(100, 20);
+            this.valMax.TabIndex = 5;
+            // 
+            // valMin
+            // 
+            this.valMin.Location = new System.Drawing.Point(6, 46);
+            this.valMin.Name = "valMin";
+            this.valMin.Size = new System.Drawing.Size(100, 20);
+            this.valMin.TabIndex = 4;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(896, 504);
+            this.tabControl1.TabIndex = 7;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.grid_log);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(888, 478);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Log";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // grid_log
+            // 
+            this.grid_log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_log.Location = new System.Drawing.Point(14, 14);
+            this.grid_log.Name = "grid_log";
+            this.grid_log.Size = new System.Drawing.Size(533, 307);
+            this.grid_log.TabIndex = 4;
             // 
             // Form1
             // 
@@ -560,14 +595,11 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.adminPanel.ResumeLayout(false);
@@ -575,9 +607,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridP)).EndInit();
             this.group_connexion.ResumeLayout(false);
             this.group_connexion.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grid_log)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -585,50 +623,53 @@
         #endregion
 
         private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Data.DataSet dataSet1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button_port;
+        private System.Windows.Forms.ComboBox combo_port;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label text_connexion;
+        private System.Windows.Forms.GroupBox adminPanel;
+        private System.Windows.Forms.Button explication;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox accessID;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button insertUtilisateur;
+        private System.Windows.Forms.Button addUser;
+        private System.Windows.Forms.TextBox userPassword;
+        private System.Windows.Forms.DataGridView gridP;
+        private System.Windows.Forms.TextBox userUsername;
+        private System.Windows.Forms.GroupBox group_connexion;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button submitLogin;
+        private System.Windows.Forms.TextBox password;
+        private System.Windows.Forms.TextBox username;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.ComboBox graph;
+        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button_alarme;
+        private System.Windows.Forms.Button load_fichier;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox alarmeMax;
+        private System.Windows.Forms.TextBox alarmeMin;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button valid;
         private System.Windows.Forms.ComboBox comboBox;
         private System.Windows.Forms.TextBox valMax;
         private System.Windows.Forms.TextBox valMin;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ComboBox graph;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.GroupBox adminPanel;
-        private System.Windows.Forms.TextBox userUsername;
-        private System.Windows.Forms.GroupBox group_connexion;
-        private System.Windows.Forms.Button submitLogin;
-        private System.Windows.Forms.TextBox password;
-        private System.Windows.Forms.TextBox username;
-        private System.Data.DataSet dataSet1;
-        private System.Windows.Forms.DataGridView gridP;
-        private System.Windows.Forms.TextBox userPassword;
-        private System.Windows.Forms.Button addUser;
-        private System.Windows.Forms.Button insertUtilisateur;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox accessID;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button button_port;
-        private System.Windows.Forms.ComboBox combo_port;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox alarmeMax;
-        private System.Windows.Forms.TextBox alarmeMin;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label text_connexion;
-        private System.Windows.Forms.Button load_fichier;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button explication;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.DataGridView grid_log;
     }
 }
 

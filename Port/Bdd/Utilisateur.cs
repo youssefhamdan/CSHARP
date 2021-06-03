@@ -67,6 +67,9 @@ namespace Port
                                     text_connexion.Visible = true;
                                     group_connexion.Visible = false;
                                 }
+                                /******CODE EXAMEN: DEBUT*********/
+                                insertDbLog(DateTime.Now.ToString(), "USER", (String)DBReader[1]);
+                                /******CODE EXAMEN: FIN***********/
                             }
                         }
                     }
@@ -84,7 +87,9 @@ namespace Port
         private void MakeDataTables()
         {
             ConfigDataset();
-            BindToDataGrid();
+            BindToDataGrid(); 
+            ConfigDataTable();
+            BindDataGridLog();
         }
         //Creation table+relation
         private static void ConfigDataset()

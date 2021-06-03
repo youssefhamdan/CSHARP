@@ -265,12 +265,18 @@ namespace Port
                                         
                     dataGridView1.Rows[i].Cells[2].Value = trame.dataConverti;
 
-                    if (trame.dataConverti > trame.alarmeMax)
+                    if (trame.dataConverti > trame.alarmeMax && trame.alarmeMax!=0)
                     {
+                        /******CODE EXAMEN: DEBUT*********/
+                        insertDbLog(DateTime.Now.ToString(), "Alarm", "Trop chaud"+trame.dataConverti);
+                        /******CODE EXAMEN: FIN***********/
                         dataGridView1.Rows[i].Cells[3].Value = "Trop chaud";
                     }
-                    else if (trame.dataConverti < trame.alarmeMin)
+                    else if (trame.dataConverti < trame.alarmeMin && trame.alarmeMin != 0)
                     {
+                        /******CODE EXAMEN: DEBUT*********/
+                        insertDbLog(DateTime.Now.ToString(), "Alarm", "Trop froid" + trame.dataConverti);
+                        /******CODE EXAMEN: FIN***********/
                         dataGridView1.Rows[i].Cells[3].Value = "Trop Froid";
                     }
                     else {
@@ -292,6 +298,6 @@ namespace Port
             
         }
 
-      
+       
     }
 }
